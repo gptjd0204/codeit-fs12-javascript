@@ -204,7 +204,7 @@ function renderAllEntries(mood) {
     // diaryList.previousElementSibling.textContent = `일기 목록 (${diary.length})`;
 
     // ============================================
-    // 도전과제 2 : 진행중..(완성 X)
+    // 도전과제 2 : 완
     // ============================================
     if (mood) {
       const moodDiary = diary.filter((entry) => {
@@ -372,7 +372,7 @@ if (diaryForm) {
   diaryForm.addEventListener("submit", handleSubmit);
 }
 // ============================================
-// 도전과제 2 : 진행중..(완성 X)
+// 도전과제 2 : 완
 // ============================================
 const categoryList = document.querySelectorAll("#category-list span");
 let curMood; // 현재 카테고리
@@ -502,7 +502,7 @@ function getEntriesByKeyword(keyword) {
   });
 }
 
-// 2. renderAllEntries를 수정해서 특정 mood만 필터링 가능하게 만들기 [진행중]
+// 2. renderAllEntries를 수정해서 특정 mood만 필터링 가능하게 만들기 [완]
 //    - 예: renderAllEntries('happy') → 행복한 일기만 표시
 //    - 힌트: 파라미터로 mood를 받아서, 있으면 filter 적용
 
