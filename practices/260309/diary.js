@@ -195,31 +195,31 @@ function renderAllEntries(mood) {
     emptyMessage.style.display = "block";
   } else {
     emptyMessage.style.display = "none";
-    diary.forEach((entry) => {
-      diaryList.appendChild(renderEntry(entry));
-    });
+    // diary.forEach((entry) => {
+    //   diaryList.appendChild(renderEntry(entry));
+    // });
     // ============================================
     // 도전과제 3
     // ============================================
-    diaryList.previousElementSibling.textContent = `일기 목록 (${diary.length})`;
+    // diaryList.previousElementSibling.textContent = `일기 목록 (${diary.length})`;
 
     // ============================================
     // 도전과제 2 : 진행중..(완성 X)
     // ============================================
-    // if (mood) {
-    //   const moodDiary = diary.filter((entry) => {
-    //     return entry.mood === mood;
-    //   });
-    //   moodDiary.forEach((entry) => {
-    //     diaryList.appendChild(renderEntry(entry));
-    //   });
-    //   diaryList.previousElementSibling.textContent = `일기 목록 (${moodDiary.length})`;
-    // } else {
-    //   diary.forEach((entry) => {
-    //     diaryList.appendChild(renderEntry(entry));
-    //   });
-    //   diaryList.previousElementSibling.textContent = `일기 목록 (${diary.length})`;
-    // }
+    if (mood) {
+      const moodDiary = diary.filter((entry) => {
+        return entry.mood === mood;
+      });
+      moodDiary.forEach((entry) => {
+        diaryList.appendChild(renderEntry(entry));
+      });
+      diaryList.previousElementSibling.textContent = `일기 목록 (${moodDiary.length})`;
+    } else {
+      diary.forEach((entry) => {
+        diaryList.appendChild(renderEntry(entry));
+      });
+      diaryList.previousElementSibling.textContent = `일기 목록 (${diary.length})`;
+    }
   }
 }
 
@@ -307,7 +307,7 @@ function deleteEntry(id) {
 
   if (findIndexEntry >= 0) {
     diary.splice(findIndexEntry, 1);
-    renderAllEntries();
+    renderAllEntries(curMood);
     renderStats();
   }
 }
@@ -371,41 +371,26 @@ if (diaryForm) {
   // TODO: 여기에 addEventListener를 작성하세요
   diaryForm.addEventListener("submit", handleSubmit);
 }
-
 // ============================================
 // 도전과제 2 : 진행중..(완성 X)
 // ============================================
-const categoryList = document.querySelector("#category-list");
-categoryList.className = "stat-grid";
-const categorySelect = categoryList.children;
-categorySelect.className = "stat-item mood-category";
-function handleClick(e) {
-  // TODO: 폼이 제출되면 일기를 추가하거나 수정하세요
-  //
-  // 단계:
-  // 1. e.preventDefault()로 페이지 새로고침 방지
-  // 2. 입력값 가져오기:
-  //    const title = titleInput.value;
-  //    const content = contentInput.value;
-  //    const mood = moodSelect.value;
-  // 3. 수정 모드인지 확인:
-  //    if (editingId) → updateEntry(editingId, { title, content, mood })
-  //    else → addEntry(title, content, mood)
-  // 4. clearForm()으로 폼 초기화
-  // 5. renderAllEntries()로 화면 갱신
-  e.preventDefault();
-  const title = titleInput.value;
-  const content = contentInput.value;
-  const mood = moodSelect.value;
+const categoryList = document.querySelectorAll("#category-list span");
+let curMood; // 현재 카테고리
 
-  if (editingId) {
-    updateEntry(editingId, { title, content, mood });
-  } else {
-    addEntry(title, content, mood);
-  }
-  clearForm();
-  renderAllEntries();
-  renderStats();
+if (categoryList) {
+  categoryList.forEach((category) => {
+    category.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("카테고리 클릭됨=> ", category.id);
+      if (category.id) {
+        curMood = category.id;
+      }
+
+      clearForm();
+      renderAllEntries(category.id);
+      renderStats();
+    });
+  });
 }
 
 // ============================================

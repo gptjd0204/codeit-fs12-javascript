@@ -77,6 +77,27 @@ button {
   background: #357abd;
 }
 
+/* 카테고리 항목 */
+#category-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#category-list span {
+  background: #f5f7fa;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+#category-list span:hover {
+  background: #9e9e9e;
+  color: #ffffff;
+  cursor: pointer;
+}
+
 /* 일기 항목 */
 .entry {
   border: 1px solid #eee;
